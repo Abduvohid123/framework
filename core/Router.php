@@ -43,10 +43,10 @@ class Router
         return call_user_func($callback);
     }
 
-    public function renderView(string $callback)
+    public function renderView(string $callback,$massiv=[])
     {
         $layoutContent = $this->layoutContent();
-        $viewContent = $this->renderOnlyView($callback);
+        $viewContent = $this->renderOnlyView($callback,$massiv);
 
         return str_replace('{{content}}', $viewContent, $layoutContent);
     }
@@ -67,8 +67,11 @@ class Router
         return ob_get_clean();
     }
 
-    protected function renderOnlyView($view)
+    protected function renderOnlyView($view,$massiv)
     {
+        foreach ($massiv as $key => $value){
+            $$key=$value;
+        }
         ob_start();
         include_once Application::$ROOT_DIR . "/views/$view.php";
         return ob_get_clean();
