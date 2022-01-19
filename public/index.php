@@ -11,4 +11,6 @@ $app->router->get('/',function (){
     return 'salom';
 });
 
+$app->router->get('/contact','contact');
+
 $app->run();
