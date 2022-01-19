@@ -2,15 +2,15 @@
 
 namespace app\controllers;
 
-use app\core\Application;
+use app\core\Controller;
 
-class SiteController
+class SiteController extends Controller
 {
     public function index()
     {
         $massiv=['salom'=>'qalesan'];
 
-        return Application::$app->router->renderView('home',$massiv);
+        return $this->render( 'home',$massiv);
     }
 
 }
