@@ -18,7 +18,7 @@ class Application
         self::$ROOT_DIR=$path;
         $this->response=new Response();
         $this->request= new Request();
-        $this->router = new Router($this->request);
+        $this->router = new Router($this->request,$this->response);
 
     }
 
