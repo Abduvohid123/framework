@@ -17,4 +17,6 @@ $app->router->post('/contact',function (){
     return "postdan xabar keldi";
 });
 
+$app->router->get('/massiv',[\app\controllers\SiteController::class,'index']);
+
 $app->run();
