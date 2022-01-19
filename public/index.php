@@ -24,4 +24,14 @@ $app->router->get('/home','home');
 $app->router->post('/other_contact',[\app\controllers\SiteController::class,'other_contact']);
 $app->router->get('/massiv',[\app\controllers\SiteController::class,'index']);
 
+
+$app->router->post('login',[\app\controllers\AuthController::class,'login']);
+$app->router->get('login',[\app\controllers\AuthController::class,'login']);
+
+$app->router->post('/register',[\app\controllers\AuthController::class,'register']);
+$app->router->get('/register',[\app\controllers\AuthController::class,'register']);
+
+
+
+
 $app->run();
