@@ -2,7 +2,9 @@
 
 namespace app\controllers;
 
+use app\core\Application;
 use app\core\Controller;
+use app\core\Request;
 
 class SiteController extends Controller
 {
@@ -11,6 +13,11 @@ class SiteController extends Controller
         $massiv=['salom'=>'qalesan'];
 
         return $this->render( 'home',$massiv);
+    }
+
+    public function other_contact(Request $request)
+    {
+        var_dump($request->getBody());
     }
 
 }

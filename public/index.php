@@ -21,6 +21,7 @@ $app->router->get('/contact','contact');
 $app->router->get('/home','home');
 
 
+$app->router->post('/other_contact',[\app\controllers\SiteController::class,'other_contact']);
 $app->router->get('/massiv',[\app\controllers\SiteController::class,'index']);
 
 $app->run();

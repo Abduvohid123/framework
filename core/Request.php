@@ -18,4 +18,22 @@ class Request
     {
         return strtolower($_SERVER['REQUEST_METHOD']);
     }
+
+
+    public function getBody(){
+        $body=[];
+        if($this->getMethod()==='get'){
+            foreach ($_GET as $index => $item) {
+                $body[$index]=filter_input(INPUT_GET,$index,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            }
+        }
+
+        if($this->getMethod()==='post'){
+            foreach ($_POST as $index => $item) {
+                $body[$index]=filter_input(INPUT_POST,$index,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            }
+        }
+
+        return $body;
+    }
 }
