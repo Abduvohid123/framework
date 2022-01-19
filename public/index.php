@@ -13,5 +13,8 @@ $app->router->get('/',function (){
 
 $app->router->get('/contact','contact');
 $app->router->get('/home','home');
+$app->router->post('/contact',function (){
+    return "postdan xabar keldi";
+});
 
 $app->run();
