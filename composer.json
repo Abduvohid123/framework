@@ -6,6 +6,11 @@
             "email": "abduvohid.mirzamahmudov@gmal.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
     "require": {
 
 
