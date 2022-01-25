@@ -2,7 +2,9 @@
 
 namespace app\models;
 
-class RegisterModel
+use app\core\Model;
+
+class RegisterModel extends  Model
 {
     public string $firstname;
     public string $lastname;
@@ -10,7 +12,10 @@ class RegisterModel
     public string $password;
     public string $confirm_password;
 
-
+    public function register()
+    {
+        return 'Created new user';
+    }
 
 
 }

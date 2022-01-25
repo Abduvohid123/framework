@@ -18,17 +18,21 @@ class AuthController extends Controller
     public function register(Request $request)
     {
 
-        $errors = [];
+        $registerModel = new RegisterModel();
         if ($request->isPost()) {
-            $registerModel = new RegisterModel();
-            $firstname = $request->getBody()['firstname'];
-            if (!$firstname) {
-                $errors['firstname']='Ismni kiritish majburiy!';
+
+            $registerModel->loadData($request->getBody());
+echo "<pre>";
+            var_dump($registerModel);
+            if($registerModel->validate()  && $registerModel->register()){
+                return  'Success!';
             }
+            return  $this->render('register',['model'=>$registerModel]);
+
         }
         $this->setLayout('auth');
 
-        return $this->render('register',['errors'=>$errors]);
+        return $this->render('register',['model'=>$registerModel]);
     }
 
 

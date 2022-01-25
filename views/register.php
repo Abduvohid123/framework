@@ -1,9 +1,6 @@
 <div class="container">
 
-<?php
 
-var_dump($errors);
-?>
     <form method="post" action="/register">
         <div class="form-group">
             <label for="exampleInputEmail1">Firstname</label>
