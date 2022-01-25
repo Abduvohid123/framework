@@ -4,8 +4,15 @@
     <form method="post" action="/register">
         <div class="form-group">
             <label for="exampleInputEmail1">Firstname</label>
-            <input name="firstname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Firstname">
+            <input name="firstname" type="text" class="form-control <?php echo $model->hasErrors('firstname') ?' is-invalid':'' ?>" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Firstname"
+            value="<?php  echo $model->firstname??'' ?>"
+            >
+            <div class="invalid-feedback">
+
+                <?php echo $model->getFirstError('firstname') ?>
+            </div>
         </div>
+
         <div class="form-group">
             <label for="exampleInputPassword1">Lastname</label>
             <input name="lastname" type="text" class="form-control" id="exampleInputPassword1" placeholder="Lastname">

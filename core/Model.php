@@ -10,7 +10,7 @@ abstract class Model
     public const RULE_MIN = 'min';
     public const RULE_MATCH = 'match';
 
-    public array $errors=[];
+    public array $errors = [];
 
 
     public function loadData(array $getBody)
@@ -37,57 +37,67 @@ abstract class Model
                 $ruleName = $rule;
 
                 if (!is_string($rule)) {
-                    $ruleName=key($rule);
+                    $ruleName = key($rule);
                 }
 
-                if ($ruleName===self::RULE_REQUIRED && !$value){ // agar formada inputga malumot kirilmagan bolsa
-                    $this->addError($attribute,self::RULE_REQUIRED);
+                if ($ruleName === self::RULE_REQUIRED && !$value) { // agar formada inputga malumot kirilmagan bolsa
+                    $this->addError($attribute, self::RULE_REQUIRED);
                 }
 
-                if ($ruleName===self::RULE_EMAIL && !filter_var($value,FILTER_VALIDATE_EMAIL)){
-                    $this->addError($attribute,self::RULE_EMAIL);
+                if ($ruleName === self::RULE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                    $this->addError($attribute, self::RULE_EMAIL);
 
                 }
 
-                if ($ruleName === self::RULE_MIN && strlen($value)<$rule['min'] ){
-                    $this->addError($attribute,self::RULE_MIN,$rule);
+                if ($ruleName === self::RULE_MIN && strlen($value) < $rule['min']) {
+                    $this->addError($attribute, self::RULE_MIN, $rule);
                 }
 
-                if ($ruleName === self::RULE_MAX && strlen($value)>$rule['max'] ){
-                    $this->addError($attribute,self::RULE_MAX,$rule);
+                if ($ruleName === self::RULE_MAX && strlen($value) > $rule['max']) {
+                    $this->addError($attribute, self::RULE_MAX, $rule);
                 }
 
-                if ($ruleName === self::RULE_MATCH && $value >$this->{$rule['match']}){
-                    $this->addError($attribute,self::RULE_MATCH,$rule,$rule);
+                if ($ruleName === self::RULE_MATCH && $value > $this->{$rule['match']}) {
+                    $this->addError($attribute, self::RULE_MATCH, $rule, $rule);
                 }
             }
 
         }
-        return ($this->errors);
+        return empty($this->errors);
     }
 
     abstract public function rules(): array;
 
-    private function addError(string $attribute, string $rule,$params=[])
+    private function addError(string $attribute, string $rule, $params = [])
     {
-        $message=$this->errorMesages()[$rule]??'';
+        $message = $this->errorMesages()[$rule] ?? '';
 
         foreach ($params as $key => $param) {
-            $message=str_replace("{{$key}}",$param,$message);
+            $message = str_replace("{{$key}}", $param, $message);
         }
-        $this->errors[$attribute][]=$message;
+        $this->errors[$attribute][] = $message;
 
     }
 
-    private  function errorMesages(){
+    private function errorMesages()
+    {
         return [
-          self::RULE_REQUIRED=>'malumot kiritilishi shart',
-          self::RULE_EMAIL=>'email xato kitildi',
-          self::RULE_MIN=>'malumot uzunligi {min} dan kam bo\'lmasligi kerak',
-          self::RULE_MAX=>'malumot uzunligi {max} dan ko\'p bo\'lmasligi kerak',
-          self::RULE_MATCH=>'malumot {match} bilan bir xil bo\'lishi kerak'
+            self::RULE_REQUIRED => 'malumot kiritilishi shart',
+            self::RULE_EMAIL => 'email xato kitildi',
+            self::RULE_MIN => 'malumot uzunligi {min} dan kam bo\'lmasligi kerak',
+            self::RULE_MAX => 'malumot uzunligi {max} dan ko\'p bo\'lmasligi kerak',
+            self::RULE_MATCH => 'malumot {match} bilan bir xil bo\'lishi kerak'
         ];
     }
 
+    public function hasErrors($attribute)
+    {
+        return $this->errors[$attribute] ?? false;
+    }
+
+    public function getFirstError($attribute)
+    {
+        return $this->errors[$attribute][0] ?? false;
+    }
 
 }
