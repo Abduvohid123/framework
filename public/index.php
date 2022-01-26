@@ -1,5 +1,6 @@
 <?php
 
+ini_set('display_errors',1);
 use app\core\Application;
 
 require_once __DIR__ . "/../vendor/autoload.php";

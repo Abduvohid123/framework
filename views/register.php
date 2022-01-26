@@ -1,15 +1,21 @@
 <div class="container">
 
 
-    <form method="post" action="/register">
-        <div class="form-group">
+    <?php  $form=  \app\core\form\Form::begin('/register','post') ?>
+
+    <?php echo $form->field($model,'firstname') ?>
+    <?php echo $form->field($model,'lastname') ?>
+    <?php echo $form->field($model,'email') ?>
+    <?php echo $form->field($model,'password') ?>
+    <?php echo $form->field($model,'confirm_password') ?>
+     <!--   <div class="form-group">
             <label for="exampleInputEmail1">Firstname</label>
-            <input name="firstname" type="text" class="form-control <?php echo $model->hasErrors('firstname') ?' is-invalid':'' ?>" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Firstname"
-            value="<?php  echo $model->firstname??'' ?>"
+            <input name="firstname" type="text" class="form-control <?php /*echo $model->hasErrors('firstname') ?' is-invalid':'' */?>" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Firstname"
+            value="<?php /* echo $model->firstname??'' */?>"
             >
             <div class="invalid-feedback">
 
-                <?php echo $model->getFirstError('firstname') ?>
+                <?php /*echo $model->getFirstError('firstname') */?>
             </div>
         </div>
 
@@ -30,9 +36,9 @@
         <div class="form-group">
             <label for="exampleInputpassword2">Email</label>
             <input name="confirm_password" type="password" class="form-control" id="exampleInputpassword2" placeholder="Confirm Password">
-        </div>
+        </div>-->
 
         <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    <?php  \app\core\form\Form::end(); ?>
 
 </div>
