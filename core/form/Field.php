@@ -6,6 +6,9 @@ use app\core\Model;
 
 class Field
 {
+    public const  TYPE_TEXT = 'text';
+    public const  TYPE_PASSWORD = 'password';
+    public string $type;
     public Model $model;
     public string $attribute;
 
@@ -13,7 +16,11 @@ class Field
     {
         $this->model = $model;
         $this->attribute = $attribute;
+        $this->type=self::TYPE_TEXT;
     }
+
+
+
 
     public function __toString()
     {
@@ -21,14 +28,10 @@ class Field
             <div class="form-group">
             <label >%s</label>
             <input name="%s"
-            type="text"
             value="%s"
             class="form-control%s"
-
-
-            >
+            type="%s">
             <div class="invalid-feedback">
-
                 %s
             </div>
         </div>',
@@ -37,9 +40,15 @@ class Field
             $this->attribute,
             $this->model->{$this->attribute},
             $this->model->hasErrors($this->attribute) ? ' is-invalid' : '',
+            $this->type,
             $this->model->getFirstError($this->attribute)
 
         );
+    }
+
+    public function passwordField(){
+        $this->type=self::TYPE_PASSWORD;
+        return $this;
     }
 
 
