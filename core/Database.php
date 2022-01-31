@@ -27,15 +27,16 @@ class Database
         $migration_fayllar = scandir(Application::$ROOT_DIR . '/migrations');
 
         $bazaga_yozilmagan_migrationlar = array_diff($migration_fayllar, $bazaga_yozilgan_migrationlar);
-        $massiv = [];
         foreach ($bazaga_yozilmagan_migrationlar as $item) {
             if ($item == '.' || $item == '..') {
                 continue;
             }
-            $massiv[] = $item;
+            require_once Application::$ROOT_DIR."/migrations/$item";
+            $classname=pathinfo($item,PATHINFO_FILENAME);
 
+            $migration_class= new $classname();
+            $migration_class->up();
         }
-        var_dump($massiv);
     }
 
     public function createTAbleMigrations()
