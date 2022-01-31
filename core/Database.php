@@ -21,7 +21,21 @@ class Database
     {
 
         $this->createTAbleMigrations();
-        var_dump(        $this->bazaga_yozilgan_migrationlar());
+
+        $bazaga_yozilgan_migrationlar = $this->bazaga_yozilgan_migrationlar();
+
+        $migration_fayllar = scandir(Application::$ROOT_DIR . '/migrations');
+
+        $bazaga_yozilmagan_migrationlar = array_diff($migration_fayllar, $bazaga_yozilgan_migrationlar);
+        $massiv = [];
+        foreach ($bazaga_yozilmagan_migrationlar as $item) {
+            if ($item == '.' || $item == '..') {
+                continue;
+            }
+            $massiv[] = $item;
+
+        }
+        var_dump($massiv);
     }
 
     public function createTAbleMigrations()
@@ -37,8 +51,8 @@ class Database
 
     public function bazaga_yozilgan_migrationlar()
     {
-       $natija= $this->pdo->prepare('select migration from migrations');
-       $natija->execute();
-       return $natija->fetchAll(\PDO::FETCH_COLUMN); // sub massiv li datani oddiy massiv qilib qaytaradi
+        $natija = $this->pdo->prepare('select migration from migrations');
+        $natija->execute();
+        return $natija->fetchAll(\PDO::FETCH_COLUMN); // sub massiv li datani oddiy massiv qilib qaytaradi
     }
 }
