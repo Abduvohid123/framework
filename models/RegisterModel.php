@@ -25,9 +25,9 @@ class RegisterModel extends DbModel
 
 
 
-    public function register()
+    public function save()
     {
-        return $this->save();
+        return parent::save();
     }
 
 
