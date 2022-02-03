@@ -42,7 +42,7 @@ class RegisterModel extends DbModel
         return [
             'firstname' => [self::RULE_REQUIRED],
             'lastname' => [self::RULE_REQUIRED],
-            'email' => [self::RULE_REQUIRED, self::RULE_EMAIL],
+            'email' => [self::RULE_REQUIRED, self::RULE_EMAIL,[self::RULE_UNIQUE=>['class'=>self::class],['attribute'=>$this->email]]],
             'password' => [self::RULE_REQUIRED, [self::RULE_MIN => 8], [self::RULE_MAX => 24]],
             'confirm_password' => [self::RULE_REQUIRED, [self::RULE_MATCH => 'password']]
         ];

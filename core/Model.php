@@ -9,6 +9,7 @@ abstract class Model
     public const RULE_MAX = 'max';
     public const RULE_MIN = 'min';
     public const RULE_MATCH = 'match';
+    public const RULE_UNIQUE = 'unique';
 
     public array $errors = [];
 
@@ -58,7 +59,25 @@ abstract class Model
                 }
 
                 if ($ruleName === self::RULE_MATCH && $value > $this->{$rule['match']}) {
-                    $this->addError($attribute, self::RULE_MATCH, $rule, $rule);
+                    $this->addError($attribute, self::RULE_MATCH, $rule);
+                }
+
+                if ($ruleName==self::RULE_UNIQUE){
+                    $className=$rule[self::RULE_UNIQUE]['class'];
+                    $tableName=$className::tableName();
+
+                    $sql="select * from $tableName where $attribute = '$value'";
+
+
+                    $baza=Application::$app->db->pdo->prepare($sql);
+
+                    $baza->execute();
+                    if ($baza->fetchObject()){
+
+                        $this->addError($attribute,self::RULE_UNIQUE,['field'=>$attribute]);
+                    }
+
+
                 }
             }
 
@@ -82,6 +101,7 @@ abstract class Model
     private function errorMesages()
     {
         return [
+            self::RULE_UNIQUE=> 'ushbu {field} allaqachon mavjud',
             self::RULE_REQUIRED => 'malumot kiritilishi shart',
             self::RULE_EMAIL => 'email xato kitildi',
             self::RULE_MIN => 'malumot uzunligi {min} dan kam bo\'lmasligi kerak',
