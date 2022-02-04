@@ -66,10 +66,11 @@ abstract class Model
                     $className=$rule[self::RULE_UNIQUE]['class'];
                     $tableName=$className::tableName();
 
-                    $sql="select * from $tableName where $attribute = '$value'";
+                    $sql="select * from $tableName where $attribute = ':attr'";
 
 
                     $baza=Application::$app->db->pdo->prepare($sql);
+                    $baza->bindValue(":attr",$value);
 
                     $baza->execute();
                     if ($baza->fetchObject()){

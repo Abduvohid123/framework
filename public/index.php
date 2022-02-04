@@ -18,9 +18,7 @@ $config = [
 
 $app = new Application(dirname(__DIR__), $config);
 
-$app->router->get('/', function () {
-    return 'salom';
-});
+$app->router->get('/', 'contact');
 
 $app->router->post('/contact', function () {
     return "postdan xabar keldi";
