@@ -26,8 +26,8 @@ class AuthController extends Controller
 
 
             if($registerModel->validate()  && $registerModel->save()){
-
-                return  Application::$app->response->redirect('/');
+                Application::$app->session->setFlash('success','Siz registratsiyadan o\'tdingiz');
+                Application::$app->response->redirect('/');
             }
 
 

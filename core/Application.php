@@ -11,6 +11,7 @@ class Application
     public Response $response;
     public static Application $app;
     public Controller $controller;
+    public Session $session;
 
 
     public function __construct($path ,$config)
@@ -23,6 +24,7 @@ class Application
         $this->request= new Request();
         $this->router = new Router($this->request,$this->response);
         $this->controller=new Controller();
+        $this->session=new Session();
     }
 
     public function run()
