@@ -99,6 +99,10 @@ abstract class Model
 
     }
 
+    public function addError_boshqa_joydan($attribute,$message){
+        $this->errors[$attribute][] = $message;
+    }
+
     private function errorMesages()
     {
         return [

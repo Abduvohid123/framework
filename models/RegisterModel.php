@@ -13,10 +13,12 @@ class RegisterModel extends DbModel
     const  STATUS_DELETE=2;
     public string $firstname='';
     public string $lastname='';
-    public string $email='';
     public int $status=self::STATUS_INACTIVE;
+    public string $email='';
     public string $password='';
     public string $confirm_password='';
+
+
 
     public function tableName(): string
     {
