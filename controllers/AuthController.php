@@ -18,6 +18,7 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+        $this->setLayout('auth');
 
         $registerModel = new RegisterModel();
         if ($request->isPost()) {
@@ -27,7 +28,7 @@ class AuthController extends Controller
 
             if($registerModel->validate()  && $registerModel->save()){
                 Application::$app->session->setFlash('success','Siz registratsiyadan o\'tdingiz');
-                Application::$app->session->setFlash('danger','Xato');
+            //    Application::$app->session->setFlash('danger','Xato');
                 Application::$app->response->redirect('/');
             }
 
@@ -35,7 +36,6 @@ class AuthController extends Controller
             return  $this->render('register',['model'=>$registerModel]);
 
         }
-        $this->setLayout('auth');
 
         return $this->render('register',['model'=>$registerModel]);
     }

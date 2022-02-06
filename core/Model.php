@@ -58,7 +58,7 @@ abstract class Model
                     $this->addError($attribute, self::RULE_MAX, $rule);
                 }
 
-                if ($ruleName === self::RULE_MATCH && $value > $this->{$rule['match']}) {
+                if ($ruleName === self::RULE_MATCH && $value != $this->{$rule['match']}) {
                     $this->addError($attribute, self::RULE_MATCH, $rule);
                 }
 
@@ -66,13 +66,13 @@ abstract class Model
                     $className=$rule[self::RULE_UNIQUE]['class'];
                     $tableName=$className::tableName();
 
-                    $sql="select * from $tableName where $attribute = ':attr'";
+                    $sql="select * from $tableName where $attribute = '$value'";
 
 
                     $baza=Application::$app->db->pdo->prepare($sql);
-                    $baza->bindValue(":attr",$value);
 
                     $baza->execute();
+
                     if ($baza->fetchObject()){
 
                         $this->addError($attribute,self::RULE_UNIQUE,['field'=>$attribute]);
