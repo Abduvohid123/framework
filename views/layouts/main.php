@@ -49,6 +49,9 @@
     <div class="alert alert-success">
         <?php  echo \app\core\Application::$app->session->getFlash('success') ?>
     </div>
+        <div class="alert alert-danger">
+        <?php  echo \app\core\Application::$app->session->getFlash('danger') ?>
+    </div>
     <?php
     endif;
     ?>
