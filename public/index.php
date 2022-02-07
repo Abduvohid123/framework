@@ -39,6 +39,12 @@ $app->router->get('/logout', [\app\controllers\AuthController::class, 'logout'])
 
 $app->router->post('/register', [\app\controllers\AuthController::class, 'register']);
 $app->router->get('/register', [\app\controllers\AuthController::class, 'register']);
+$app->router->get('/profile', [\app\controllers\AuthController::class, 'profile']);
 
+try {
 
-$app->run();
+    $app->run();
+}catch (Exception $exception){
+    $app->controller->layout='auth';
+    echo $app->controller->render('error');
+}
