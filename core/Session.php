@@ -66,6 +66,7 @@ class Session
         return $_SESSION[$string];
     }
     public function  remove($key){
+
         unset($_SESSION[$key]);
     }
 }

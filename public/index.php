@@ -1,6 +1,6 @@
 <?php
 
-ini_set('display_errors', 1);
+//ini_set('display_errors', 1);
 
 use app\core\Application;
 
@@ -35,6 +35,7 @@ $app->router->get('/massiv', [\app\controllers\SiteController::class, 'index']);
 
 $app->router->post('/login', [\app\controllers\AuthController::class, 'login']);
 $app->router->get('/login', [\app\controllers\AuthController::class, 'login']);
+$app->router->get('/logout', [\app\controllers\AuthController::class, 'logout']);
 
 $app->router->post('/register', [\app\controllers\AuthController::class, 'register']);
 $app->router->get('/register', [\app\controllers\AuthController::class, 'register']);

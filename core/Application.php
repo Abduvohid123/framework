@@ -29,8 +29,7 @@ class Application
         $this->session=new Session();
         $this->userClass=$config['userClass'];
 
-        $primaryValue=$this->session->get('user');
-
+        $primaryValue=$this->session->get('user')??null;
         if ($primaryValue){
             $primaryKey=$this->userClass::primaryKey();
 
@@ -80,4 +79,10 @@ class Application
         $this->user=null;
         $this->session->remove('user');
     }
+
+    public static function mehmonmisan()
+    {
+        return !self::$app->user;
+    }
+
 }

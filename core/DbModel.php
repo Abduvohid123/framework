@@ -62,9 +62,14 @@ abstract class DbModel extends Model
         return Application::$app->db->pdo->prepare($sql);
     }
 
-    public static function primaryKey()
+    public  function primaryKey()
     {
         return "id";
+    }
+
+    public function getDisplayName()
+    {
+        return $this->firstname." ".$this->lastname;
     }
 
 }

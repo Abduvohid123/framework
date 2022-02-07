@@ -50,5 +50,4 @@ class RegisterModel extends DbModel
         ];
     }
 
-
 }
