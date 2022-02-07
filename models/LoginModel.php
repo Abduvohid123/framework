@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\core\Application;
 use app\core\Model;
 
 class LoginModel extends Model
@@ -34,7 +35,10 @@ class LoginModel extends Model
             return false;
 
         }
+        return Application::$app->login($user);
     }
+
+
 
 
 

@@ -13,7 +13,8 @@ $config = [
         'dsn' => $_ENV['DB_DSN'],
         'user'=>$_ENV['DB_USER'],
         'password'=>$_ENV['DB_PASSWORD']
-    ]
+    ],
+    'userClass'=>\app\models\RegisterModel::class
 ];
 
 $app = new Application(dirname(__DIR__), $config);

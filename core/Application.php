@@ -1,10 +1,10 @@
 <?php
 
 namespace app\core;
-
 class Application
 {
     public  static string $ROOT_DIR;
+    public string $userClass;
     public Router $router;
     public Request $request;
     public Database $db;
@@ -12,8 +12,10 @@ class Application
     public static Application $app;
     public Controller $controller;
     public Session $session;
+    public ?DbModel $user;   // so'roq agar user yoq bolsa errro bolmasligi uchun
 
-
+//  core ichidagi klaslarni core dan tashqarida ishlatish mimkin emas  -->  misol uchun registermodelni
+// unda qanday qilib olamiz  env orqali
     public function __construct($path ,$config)
 
     {
@@ -25,6 +27,20 @@ class Application
         $this->router = new Router($this->request,$this->response);
         $this->controller=new Controller();
         $this->session=new Session();
+        $this->userClass=$config['userClass'];
+
+        $primaryValue=$this->session->get('user');
+
+        if ($primaryValue){
+            $primaryKey=$this->userClass::primaryKey();
+
+            $this->user= $this->userClass::findOne([$primaryKey=>$primaryValue]);
+        }
+        else{
+            $this->user=null;
+        }
+
+
     }
 
     public function run()
@@ -46,5 +62,22 @@ class Application
     public function setController(Controller $controller): void
     {
         $this->controller = $controller;
+    }
+
+    public function login(DbModel $user)
+    {
+        $this->user= $user;
+        $primaryKey=$user::primaryKey();
+        $primaryValue=$user->{$primaryKey};  // user->id
+
+        $this->session->set('user',$primaryValue);  // user id si sessiyaga yozildi
+
+        return true;
+
+
+    }
+    public function logout(){
+        $this->user=null;
+        $this->session->remove('user');
     }
 }

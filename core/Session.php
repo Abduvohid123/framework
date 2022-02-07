@@ -57,4 +57,15 @@ class Session
         $_SESSION[self::FLASH_KEY]=$flashMessages;
     }
 //  bundan keyin labellarni to'g'rilash
+    public function set(string $string, $primaryValue)
+    {
+        $_SESSION[$string]=$primaryValue;
+    }
+    public function get(string $string)
+    {
+        return $_SESSION[$string];
+    }
+    public function  remove($key){
+        unset($_SESSION[$key]);
+    }
 }

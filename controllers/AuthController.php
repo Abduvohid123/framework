@@ -24,6 +24,7 @@ class AuthController extends Controller
                 $response->redirect('/');
             }
 
+
         }
 
         return $this->render('login',['model'=>$registerModel]);

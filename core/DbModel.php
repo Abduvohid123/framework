@@ -4,6 +4,7 @@ namespace app\core;
 
 abstract class DbModel extends Model
 {
+
     public static function findOne(array $where)//  where = [email => '',  password => '' ]
     {
 
@@ -59,6 +60,11 @@ abstract class DbModel extends Model
     public static function prepare($sql)
     {
         return Application::$app->db->pdo->prepare($sql);
+    }
+
+    public static function primaryKey()
+    {
+        return "id";
     }
 
 }
